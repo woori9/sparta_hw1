@@ -46,6 +46,46 @@
   <link href="https://fonts.googleapis.com/css?family=Gamja+Flower|Stylish&display=swap" rel="stylesheet">
 
 
+  <script>
+    function buttonClick(){
+      let nameOrder = $('#name').val();
+      if (nameOrder == ''){
+        alert('이름을 입력해주세요');
+        $('#name').focus();
+      } 
+
+      let numberOrder = $('#number').val();
+      if (numberOrder == "--수량을 선택하세요--"){
+        alert('수량을 선택해주세요');
+        $('#number').focus();
+      }
+
+      let addressOrder = $('#address').val();
+      if (addressOrder == ''){
+        alert('주소를 입력해주세요');
+        $('#address').focus();
+      }
+
+      let phoneOrder = $('#phone').val();
+      if (phoneOrder == ''){
+        alert('전화번호를 입력해주세요');
+        $('#tel').focus();
+      }
+
+      // let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+      let regExp = /[01](0|1|6|7|8|9)[-](\d{4}|\d{3})[-]\d{4}$/g;
+      
+      if(!regExp.test(phoneOrder)){
+        alert('올바른 전화번호 형식은 010-0000-0000입니다')
+      }
+
+    }
+
+
+           
+    
+  </script>
+
 </head> 
 
 <body>
@@ -69,14 +109,14 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">주문자 이름</label>
         </div>
-        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        <input id = 'name' type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
       </div>
       
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">수량</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01">
+        <select id = 'number' class="custom-select" id="inputGroupSelect01">
           <option selected>--수량을 선택하세요--</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -89,21 +129,21 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">주소</label>
         </div>
-        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        <input id = 'address' type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
       </div>
 
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">전화번호</label>
         </div>
-        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        <input id = 'phone' type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
       </div>
 
     </div>
   </div>
 
   <div class="button">
-    <button type="button" class="btn btn-primary">주문하기</button>
+    <button onclick="buttonClick()" class="btn btn-primary">주문하기</button>
   </div>
 
 </div>
