@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- JS -->   
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -32,7 +33,12 @@
     }
 
     .button {
-      padding: 0px 0px 0px 690px;
+      padding: 0px 0px 20px 690px;
+    }
+
+    .box_size {
+      width: 35%;
+      margin-left: 470px;
     }
 
     * {
@@ -44,33 +50,86 @@
   </style>
 
   <link href="https://fonts.googleapis.com/css?family=Gamja+Flower|Stylish&display=swap" rel="stylesheet">
-
+  
 
   <script>
-    function buttonClick(){
-      let nameOrder = $('#name').val();
-      if (nameOrder == ''){
-        alert('이름을 입력해주세요');
-        $('#name').focus();
-      } 
 
-      let numberOrder = $('#number').val();
-      if (numberOrder == "--수량을 선택하세요--"){
-        alert('수량을 선택해주세요');
-        $('#number').focus();
-      }
+    $(document).ready(function(){
+      listing() //listing();
+    });
 
-      let addressOrder = $('#address').val();
-      if (addressOrder == ''){
-        alert('주소를 입력해주세요');
-        $('#address').focus();
-      }
 
-      let phoneOrder = $('#phone').val();
-      if (phoneOrder == ''){
-        alert('전화번호를 입력해주세요');
-        $('#tel').focus();
-      }
+    function listing(){
+     $.ajax({
+      type: "GET",
+      url: "http://spartacodingclub.shop/order",
+      data: {},
+      success: function(response){
+
+                // console.log(response['articles']) 
+                let orderInfo = response['orders']
+
+
+                // $('#ordered').html('')
+
+                for (let i = 0 ; i < orderInfo.length; i++) {
+
+                  let name_ordered = orderInfo[i]['name'];
+                  let number_ordered = orderInfo[i]['count'];
+                  let address_ordered = orderInfo[i]['address'];
+                  let phone_ordered = orderInfo[i]['phone'];
+                  
+                  // console.log(name_ordered, number_ordered,address_ordered, phone_ordered)
+
+                  let temp_html =                   
+                    '<tr>\
+                      <th scope="row">' + name_ordered + '</th>\
+                      <td>' + number_ordered +'</td>\
+                      <td>' + address_ordered + '</td>\
+                     <td>' + phone_ordered + '</td>\
+                    </tr>'
+                 
+                  $('#ordered').append(temp_html)
+
+
+                }
+
+                // console.log(name_ordered, number_ordered,address_ordered, phone_ordered)
+              }
+
+
+
+            })
+   }
+
+
+
+
+
+   function buttonClick(){
+    let nameOrder = $('#name').val();
+    if (nameOrder == ''){
+      alert('이름을 입력해주세요');
+      $('#name').focus();
+    } 
+
+    let numberOrder = $('#number').val();
+    if (numberOrder == "--수량을 선택하세요--"){
+      alert('수량을 선택해주세요');
+      $('#number').focus();
+    }
+
+    let addressOrder = $('#address').val();
+    if (addressOrder == ''){
+      alert('주소를 입력해주세요');
+      $('#address').focus();
+    }
+
+    let phoneOrder = $('#phone').val();
+    if (phoneOrder == ''){
+      alert('전화번호를 입력해주세요');
+      $('#tel').focus();
+    }
 
       // let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
       let regExp = /[01](0|1|6|7|8|9)[-](\d{4}|\d{3})[-]\d{4}$/g;
@@ -82,7 +141,7 @@
     }
 
 
-           
+
     
   </script>
 
@@ -99,7 +158,7 @@
 
     <div class="card-body">
       <h1 class="card-title">인형을 팝니다</h1><span>가격:10000원/개</span>
-    <p class="card-text">모자를 써도 귀엽고 벗겨도 귀여운 침낭츄</p>
+      <p class="card-text">모자를 써도 귀엽고 벗겨도 귀여운 침낭츄</p>
     </div>
 
     <div class="order_info">
@@ -121,7 +180,7 @@
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-         </select>
+        </select>
       </div>
 
 
@@ -145,8 +204,27 @@
   <div class="button">
     <button onclick="buttonClick()" class="btn btn-primary">주문하기</button>
   </div>
+  <div class="box_size">
+    <table class="table">
+                  <thead>
+                   <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">전화번호</th>
+                   </tr>
+                  </thead>
+                  <tbody id = 'ordered'>                   
+                  </tbody>
+    </table>
+  </div>
 
-</div>
+
+
+
+
+
+
 
 
 
